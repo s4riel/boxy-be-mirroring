@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -60,6 +61,9 @@ public class SecurityConfig {
                     // anonymous here; StompAuthChannelInterceptor authenticates the STOMP CONNECT frame
                     // (and RealtimeSessionRegistry drops sockets that never do).
                     auth.requestMatchers("/ws/**").permitAll();
+                    // Anonymous storefront (PublicCatalogController): read-only, GET only. Anything new
+                    // under /api/v1/public must be safe for an unauthenticated caller.
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/public/**").permitAll();
                     if (swaggerEnabled) {
                         auth.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll();
                     }

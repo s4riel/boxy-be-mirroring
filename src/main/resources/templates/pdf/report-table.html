@@ -1,0 +1,49 @@
+  <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title th:text="${title}">Reporte</title>
+  <style th:if="${landscape}">
+    @page { size: Letter landscape; margin: 12mm 10mm; }
+  </style>
+  <style th:unless="${landscape}">
+    @page { size: Letter; margin: 14mm 12mm; }
+  </style>
+  <style>
+    body { margin: 0; color: #0f172a; font-family: Helvetica, Arial, sans-serif; font-size: 9pt; line-height: 1.35; }
+    .company { color: #475569; font-size: 9pt; }
+    h1 { margin: 1mm 0 1mm; font-size: 16pt; }
+    .subtitle, .generated { margin: 0; color: #475569; font-size: 9pt; }
+    .generated { margin-bottom: 4mm; }
+    table { width: 100%; border-collapse: collapse; }
+    th { padding: 2mm; background: #e2e8f0; text-align: left; font-size: 8.5pt; }
+    td { padding: 1.6mm 2mm; border-bottom: 0.3mm solid #e2e8f0; }
+    th.numeric, td.numeric { text-align: right; }
+    tr.footer td { border-top: 0.5mm solid #0f172a; font-weight: bold; }
+    thead { display: table-header-group; }
+    tr { page-break-inside: avoid; }
+  </style>
+</head>
+<body>
+  <div class="company" th:text="${company}">Empresa</div>
+  <h1 th:text="${title}">Reporte</h1>
+  <p class="subtitle" th:if="${subtitle != null and !subtitle.isEmpty()}" th:text="${subtitle}"></p>
+  <p class="generated" th:text="'Generado: ' + ${generatedAt}"></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th th:each="header, i : ${headers}" th:classappend="${numeric[i.index]} ? 'numeric'" th:text="${header}"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="row : ${rows}">
+        <td th:each="cell, i : ${row}" th:classappend="${numeric[i.index]} ? 'numeric'" th:text="${cell}"></td>
+      </tr>
+      <tr class="footer" th:if="${footer != null}">
+        <td th:each="cell, i : ${footer}" th:classappend="${numeric[i.index]} ? 'numeric'" th:text="${cell}"></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

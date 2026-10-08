@@ -36,8 +36,11 @@ class PreAuthorizeCoverageTest {
             org.springframework.web.bind.annotation.DeleteMapping.class,
             RequestMapping.class);
 
+    // PublicCatalogController is the anonymous storefront: GET-only, permitted by SecurityConfig
+    // (/api/v1/public/**), and it only returns the public DTOs (no costs, no quantities).
     private static final Set<String> EXEMPT_CONTROLLERS = Set.of(
-            "com.boxy.boxy.modules.auth.controller.AuthController");
+            "com.boxy.boxy.modules.auth.controller.AuthController",
+            "com.boxy.boxy.modules.catalog.controller.PublicCatalogController");
 
     @Test
     void everyControllerEndpointDeclaresPreAuthorize() {

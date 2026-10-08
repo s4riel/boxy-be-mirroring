@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface CompanyRepository extends JpaRepository<Company, Long> {
     Optional<Company> findByIdAndDeletedAtIsNull(Long id);
     Optional<Company> findFirstByDeletedAtIsNull();
+    /** Case-insensitive: /catalogo/latinaTools and /catalogo/latinatools are the same catalog. */
+    Optional<Company> findBySlugIgnoreCaseAndIsActiveTrueAndDeletedAtIsNull(String slug);
 }

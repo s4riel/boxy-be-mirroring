@@ -144,7 +144,7 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Company", companyId));
 
         if (productRepository.findByCompanyIdAndSkuAndDeletedAtIsNull(companyId, request.getSku()).isPresent()) {
-            throw new BusinessException("SKU_EXISTS", "A product with SKU '" + request.getSku() + "' already exists.");
+            throw new BusinessException("SKU_EXISTS", "Ya existe un producto con el código '" + request.getSku() + "'.");
         }
 
         UnitOfMeasure unit = findOwnedUnit(request.getUnitId());
