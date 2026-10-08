@@ -22,6 +22,10 @@ public class Company {
     @Column(nullable = false, length = 150)
     private String name;
 
+    /** URL key of the public catalog (/catalogo/{slug}). {@code null} = public catalog disabled. */
+    @Column(length = 60, unique = true)
+    private String slug;
+
     @Column(name = "tax_id", nullable = false, length = 50)
     private String taxId;
 
