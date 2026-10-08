@@ -26,7 +26,7 @@ public class CreateProductRequest {
 
     private Long taxId;
 
-    @NotBlank(message = "SKU is required")
+    @NotBlank(message = "El código es requerido")
     private String sku;
 
     private String barcode;

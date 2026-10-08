@@ -117,7 +117,7 @@ public class InventoryImportService {
         // Find header row and column mapping
         int headerRowIndex = findHeaderRowIndex(rawRows);
         if (headerRowIndex == -1) {
-            throw new BusinessException("HEADER_NOT_FOUND", "No se encontró la cabecera del archivo. Debe contener una columna 'CÓDIGO', 'CODIGO' o 'SKU'.");
+            throw new BusinessException("HEADER_NOT_FOUND", "No se encontró la cabecera del archivo. Debe contener una columna 'CÓDIGO'.");
         }
 
         List<String> headerRow = rawRows.get(headerRowIndex);
